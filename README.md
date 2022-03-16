@@ -33,3 +33,8 @@ Voting is pretty simple, it just consist of creating a title for the vote, and i
 One this done, you juste need to click the button create.
 And a Metamask popup will appears. It will ask you to sign the transaction.
 After a few seconds or minutes, your vote will appears into the 'Votes' tab.
+
+
+### TODO
+
+creating the voting interface.
