@@ -52,7 +52,7 @@ function Create_vote(props) {
     }
 
     return (
-        <div>
+        <div className='container'>
             <br/>
             <Form.Group as={Row} className="mb-3" controlId="formPlaintextTitle">
                 <Form.Label column sm="2">

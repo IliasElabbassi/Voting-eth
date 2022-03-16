@@ -35,7 +35,7 @@ function App() {
   }else{
 
     return (
-      <div className="App">
+      <div className="container">
         <h1>Voting app</h1>
         <BrowserRouter>
         <Navbar /> 

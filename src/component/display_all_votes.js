@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ethers } from 'ethers';
+import {Card, Button} from 'react-bootstrap'
 
 
 function Display_all_votes(props) {
@@ -8,6 +8,7 @@ function Display_all_votes(props) {
 
     useEffect(()=>{
         setVoting(props.voting);
+        getVotes()
     },[props.voting]);
     
     async function getVotes(){
@@ -21,26 +22,32 @@ function Display_all_votes(props) {
     }
 
     return (
-        <div className="Display_all_votes">
-            <h1>
-                Inside display all votes
-            </h1>
-            <button onClick={() => getVotes()}>Display all votes</button>
+        <div className="container row row-cols-lg-3 row-cols-md-2 row-cols-1 text-center justify-content-center">
 
             {
                 votes.map((vote)=>{
-                return (
+                return ( 
                     <div>
-                        <p>title: {vote[0]}</p>
-                        {
-                            vote[2].map((elements)=>{
-                                return (<li>{elements}</li>)
-                            }) 
-                        }
-                    </div>
+                        <Card class="col my-3" style={{ width: '18rem' }}>
+                            <Card.Body>
+                                <Card.Title key={vote[0]}>{vote[0]}</Card.Title>
+                                <Card.Text>
+                                    {
+                                        vote[2].map((ele)=>{
+                                            return (<li>{ele}</li>)
+                                        })
+                                    }
+                                </Card.Text>
+                                <Button variant="primary">Vote</Button>
+                            </Card.Body>
+                        </Card>
+
+                        <br></br>
+                    </div> 
                 )
-                })
+            })
             }
+     
         </div>
     )
 }
