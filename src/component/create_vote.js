@@ -1,21 +1,22 @@
-import getBlockchain from '../ethereum.js';
+import {Form, Col, Row, Button} from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
-import { ethers } from 'ethers';
+
 
 function Create_vote(props) {
     const [voting, setVoting] = useState(undefined);
     const [title, setTitle] = useState(undefined)
     const [elements, setElements] = useState([])
+    const [inputs, setInputs] = useState(['ele1', 'ele2', 'ele3'])
 
     useEffect(()=>{
-        setVoting(props.voting);
+        if(voting === 'undefined')
+            setVoting(props.voting);
     },[props.voting]);
 
 
     async function create_vote_tx(){
-        elements.push(document.getElementById("ele1").value)
-        elements.push(document.getElementById("ele2").value)
-        elements.push(document.getElementById("ele3").value)
+        for(let i = 0; i < inputs.length; i++)
+            elements.push(document.getElementById(inputs[i]).value)
 
         try{
             const createVoteTx = await props.voting.createVote(title, elements);
@@ -24,30 +25,52 @@ function Create_vote(props) {
         }
     }
 
-    function addElement(ele){
-        if(!elements.includes(ele))
-            elements.push(ele)
+    function addInput(){
+        const size = inputs.length+1
+        const name = 'ele'+size
+        inputs.push(name) 
+
+        console.log(inputs)
+    }
+
+    function removeInput(){
+        if(inputs.length > 2)
+            inputs.pop()
+        
+        console.log(inputs)
     }
 
     return (
-        <div className="Create_vote">
-            <label>Enter vote title: 
-                <input type="text" onChange={(e) => setTitle(e.target.value)} />
-            </label> <br />
+        <div>
+            <br/>
+            <Form.Group as={Row} className="mb-3" controlId="formPlaintextTitle">
+                <Form.Label column sm="2">
+                    Vote title
+                </Form.Label>
+                <Col sm="10">
+                    <Form.Control  defaultValue="This is a vote about..." onChange={(e) => setTitle(e.target.value)} />
+                </Col>
+            </Form.Group>
+            
+            {
+                inputs.map(input => {
+                    return(
+                        <Form.Group as={Row} className="mb-3" controlId={input}>
+                        <Form.Label column sm="2">
+                            Input {input}
+                        </Form.Label>
+                        <Col sm="10">
+                            <Form.Control type="text" placeholder="vote.." />
+                        </Col>
+                    </Form.Group>
+                    )
+                })
+            }
 
-            <label>Enter an element:
-                <input id="ele1" type="text" />
-            </label><br />
+            <Button variant="primary" onClick={() => create_vote_tx()}>Create</Button>
+            <Button variant="success" onClick={() => addInput()}>add input</Button>
+            <Button variant="secondary" onClick={() => removeInput()}>remove input</Button>
 
-            <label>Enter an element:
-                <input id="ele2" type="text"/>
-            </label><br />
-
-            <label>Enter an element:
-                <input id="ele3" type="text"/>
-            </label><br />
-
-            <button onClick={() => create_vote_tx()}>create</button>
         </div>
     )
 }

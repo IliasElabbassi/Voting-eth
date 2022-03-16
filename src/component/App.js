@@ -1,9 +1,14 @@
-import getBlockchain from '../ethereum.js';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
 import React, { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Navbar from './Navbar'
+import getBlockchain from '../ethereum.js';
+
+import Home from './Home'
+import NotFound from './PageNoteFound'
 import Create_vote from './create_vote';
 import Display_all_votes from './display_all_votes';
-
-import { ethers } from 'ethers';
 
 function App() {
   const [voting, setVoting] = useState(undefined);
@@ -21,38 +26,26 @@ function App() {
     init()
   }, []);
 
-  async function getVotes(){
-    try{
-      const votes = await voting.getVote(0);
-      // console.log(votes)
-      setVotes(votes)
-    }catch(err){
-      // console.log("error: "+err)
-    }
-  }
-  
   if(typeof voting === 'undefined') {
-    return 'Loading...'
+    return (
+      <div>
+        Loading...
+      </div>
+    )
   }else{
 
     return (
       <div className="App">
-        Voting app: <br/>
-        addr : {addressConnected} <br />
-        title : {votes[0]}        <br />
-        names : {votes[2]}        <br />
-
-        <div>
-          <button onClick={()=> setVotes("Asseul")}>set vote</button>
-          <button onClick={() => getVotes()}>get votes</button>
-        </div>
-
-        <br />
-        <Create_vote voting={voting} />
-
-        <br />
-        <Display_all_votes voting={voting} />
-
+        <h1>Voting app</h1>
+        <BrowserRouter>
+        <Navbar /> 
+        <Routes>
+              <Route path="/home" element={<Home />} />
+              <Route path="/createvote" element={<Create_vote voting={voting} />} />
+              <Route path="/votes" element={<Display_all_votes voting={voting} />} />
+              <Route element={<NotFound />} />
+          </Routes>
+      </BrowserRouter>
       </div>
     )
   }

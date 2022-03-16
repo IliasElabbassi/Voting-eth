@@ -1,6 +1,6 @@
-import getBlockchain from '../ethereum.js';
 import React, { useEffect, useState } from "react";
 import { ethers } from 'ethers';
+
 
 function Display_all_votes(props) {
     const [voting, setVoting] = useState(undefined);
@@ -22,6 +22,9 @@ function Display_all_votes(props) {
 
     return (
         <div className="Display_all_votes">
+            <h1>
+                Inside display all votes
+            </h1>
             <button onClick={() => getVotes()}>Display all votes</button>
 
             {
