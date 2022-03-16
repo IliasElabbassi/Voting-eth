@@ -10,8 +10,8 @@ async function main() {
 
     const Voting = await ethers.getContractFactory('voting')
     const voting = await Voting.deploy(
-        "Red Velvet",
-        ["Irene", "Seulgi", "Wendy", "Joy", "Yeri"]
+        "Dummy vote",
+        ["vote1", "vote2", "vote3", "vote4", "vote5"]
     );
     await voting.deployed()
     
