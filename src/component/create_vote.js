@@ -1,5 +1,6 @@
 import {Form, Col, Row, Button} from 'react-bootstrap'
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forceUpdate } from "react";
+
 
 
 function Create_vote(props) {
@@ -7,6 +8,7 @@ function Create_vote(props) {
     const [title, setTitle] = useState(undefined)
     const [elements, setElements] = useState([])
     const [inputs, setInputs] = useState(['ele1', 'ele2', 'ele3'])
+    let  [,setState]=useState(); // used to re-render 
 
     useEffect(()=>{
         if(voting === 'undefined')
@@ -25,19 +27,28 @@ function Create_vote(props) {
         }
     }
 
+    // used to re-render 
+    function handleUpdate() {
+       setState({});
+    }
+
     function addInput(){
         const size = inputs.length+1
         const name = 'ele'+size
         inputs.push(name) 
-
+        
+        setInputs(inputs)
         console.log(inputs)
+        handleUpdate()
     }
 
     function removeInput(){
         if(inputs.length > 2)
             inputs.pop()
         
+        setInputs(inputs)
         console.log(inputs)
+        handleUpdate()
     }
 
     return (
@@ -55,7 +66,7 @@ function Create_vote(props) {
             {
                 inputs.map(input => {
                     return(
-                        <Form.Group as={Row} className="mb-3" controlId={input}>
+                        <Form.Group key={input} as={Row} className="mb-3" controlId={input}>
                         <Form.Label column sm="2">
                             Input {input}
                         </Form.Label>
