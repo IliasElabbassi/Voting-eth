@@ -67,7 +67,7 @@ function Create_vote(props) {
                     return(
                         <Form.Group key={input} as={Row} className="mb-3" controlId={input}>
                         <Form.Label column sm="2">
-                            Input {input}
+                            {input}
                         </Form.Label>
                         <Col sm="10">
                             <Form.Control type="text" placeholder="vote.." />

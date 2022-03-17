@@ -6,10 +6,9 @@ function Home() {
         <div className="container">
             <Row className="show-grid" >
                 <h3>
-                    Welcome to my voting app
+                    Welcome to my voting app : in build
                 </h3>
             </Row>
-            
         </div>
     )
 }
