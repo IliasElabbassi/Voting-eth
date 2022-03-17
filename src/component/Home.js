@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
+import {Grid, Col, Row} from 'react-bootstrap'
 
 function Home() {
     return (
         <div className="container">
-            <h1>Voting app</h1>
-            <h2>have fun</h2>
+            <Row className="show-grid" >
+                <h3>
+                    Welcome to my voting app
+                </h3>
+            </Row>
+            
         </div>
     )
 }

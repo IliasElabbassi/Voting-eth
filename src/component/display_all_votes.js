@@ -16,6 +16,7 @@ function Display_all_votes(props) {
             console.log(props.voting)
             const votes = await props.voting.getAllVotes();
             setVotes(votes)
+            console.log(votes)
         }catch(err){
             console.log("error: "+err)
         }
@@ -26,26 +27,26 @@ function Display_all_votes(props) {
 
             {
                 votes.map((vote, idx)=>{
-                return ( 
-                    <div>
-                        <Card key={vote[0]} className="col my-3" style={{ width: '18rem' }}>
-                            <Card.Body> 
-                                <Card.Title>{vote[0]}</Card.Title>
-                                <Card.Text>
-                                    {
-                                        vote[2].map((ele)=>{
-                                            return (<li key={ele}>{ele}</li>)
-                                        })
-                                    }
-                                </Card.Text>
-                                <VoteModal voting={voting} voteElement={vote[2]} title={vote[0]} keyVote={idx}/>
-                            </Card.Body>
-                        </Card>
+                    return ( 
+                        <div>
+                            <Card key={vote[0]} className="col my-3" style={{ width: '18rem' }}>
+                                <Card.Body> 
+                                    <Card.Title>{vote[0]}</Card.Title>
+                                    <Card.Text>
+                                        {
+                                            vote[2].map((ele)=>{
+                                                return (<li key={idx+"_"+ele}>{ele}</li>)
+                                            })
+                                        }
+                                    </Card.Text>
+                                    <VoteModal voting={voting} voteElement={vote[2]} numVotes={vote[3]} title={vote[0]} keyVote={idx}/>
+                                </Card.Body>
+                            </Card>
 
-                        <br></br>
-                    </div> 
-                )
-            })
+                            <br></br>
+                        </div> 
+                    )
+                })
             }
      
         </div>

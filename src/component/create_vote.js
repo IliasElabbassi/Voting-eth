@@ -1,5 +1,5 @@
 import {Form, Col, Row, Button} from 'react-bootstrap'
-import React, { useEffect, useState, forceUpdate } from "react";
+import React, { useEffect, useState} from "react";
 
 function Create_vote(props) {
     const [voting, setVoting] = useState(undefined);
@@ -18,6 +18,7 @@ function Create_vote(props) {
         for(let i = 0; i < inputs.length; i++)
             elements.push(document.getElementById(inputs[i]).value)
 
+        console.log(elements)
         try{
             const createVoteTx = await props.voting.createVote(title, elements);
         }catch(err){
@@ -76,8 +77,8 @@ function Create_vote(props) {
                 })
             }
 
-            <Button variant="primary" onClick={() => create_vote_tx()}>Create</Button>
-            <Button variant="success" onClick={() => addInput()}>add input</Button>
+            <Button variant="primary" onClick={() => create_vote_tx()}>Create</Button>&nbsp;
+            <Button variant="success" onClick={() => addInput()}>add input</Button>&nbsp;
             <Button variant="secondary" onClick={() => removeInput()}>remove input</Button>
 
         </div>

@@ -5,16 +5,18 @@ function Vote(props) {
     const [voteElement, setVoteElement] = useState([])
     const [voteKey, setVoteKey] = useState(undefined)
     const [voting, setVoting] = useState(undefined);
-    const [title, setTitle] = useState(false);
     const [keyVote, setKey] = useState(undefined)
+    const [numVotes, setNumVotes] = useState([])
+    const [title, setTitle] = useState(false);
     const [show, setShow] = useState(false);
 
     useEffect(()=>{
         setVoteElement(props.voteElement)
-        setVoting(props.voting);
+        setVoting(props.voting)
         setTitle(props.title)
         setKey(props.keyVote)
-    },[props.voting, props.voteElement, props.title, props.keyVote]);
+        setNumVotes(props.numVotes)
+    },[props.voting, props.voteElement, props.title, props.keyVote, props.numVotes]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -47,16 +49,20 @@ function Vote(props) {
                     {
                         voteElement.map((input, idx) => {
                             return(
-                                <Form.Group key={input+"_vote"} as={Row} className="mb-3" className={input+"_vote"}>
-                                <Col sm="3"></Col>
-                                <Form.Label column sm="2">
-                                    {input}
-                                </Form.Label>
-                                <Col sm="2"></Col>
-                                <Col sm="1">
-                                    <Form.Control type="radio" placeholder="vote.." className={title+"_radio"} onClick={() => setVoteKey(idx)}/>
-                                </Col>
-                            </Form.Group>
+                                <Form.Group key={input+"_vote"} as={Row} className="mb-3" id={input+"_vote"}>
+                                    <Col sm="3"></Col>
+                                    <Form.Label column sm="2">
+                                        {input}
+                                    </Form.Label>
+                                    <Col sm="1"></Col>
+                                    <Col sm="1">
+                                        <Form.Control type="radio" placeholder="vote.." className={title+"_radio"} onClick={() => setVoteKey(idx)}/>
+                                    </Col>
+                                    <Col sm="1"></Col>
+                                    <Col sm="3">
+                                        total : {numVotes[idx].toString()}
+                                    </Col>
+                                </Form.Group>
                             )
                         })
                     }
