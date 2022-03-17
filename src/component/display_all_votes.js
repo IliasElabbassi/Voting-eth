@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Card, Button} from 'react-bootstrap'
-
+import VoteModal from './Vote'
 
 function Display_all_votes(props) {
     const [voting, setVoting] = useState(undefined);
@@ -20,25 +20,25 @@ function Display_all_votes(props) {
             console.log("error: "+err)
         }
     }
-
+    
     return (
         <div className="container row row-cols-lg-3 row-cols-md-2 row-cols-1 text-center justify-content-center">
 
             {
-                votes.map((vote)=>{
+                votes.map((vote, idx)=>{
                 return ( 
                     <div>
-                        <Card class="col my-3" style={{ width: '18rem' }}>
-                            <Card.Body>
-                                <Card.Title key={vote[0]}>{vote[0]}</Card.Title>
+                        <Card key={vote[0]} className="col my-3" style={{ width: '18rem' }}>
+                            <Card.Body> 
+                                <Card.Title>{vote[0]}</Card.Title>
                                 <Card.Text>
                                     {
                                         vote[2].map((ele)=>{
-                                            return (<li>{ele}</li>)
+                                            return (<li key={ele}>{ele}</li>)
                                         })
                                     }
                                 </Card.Text>
-                                <Button variant="primary">Vote</Button>
+                                <VoteModal voting={voting} voteElement={vote[2]} title={vote[0]} keyVote={idx}/>
                             </Card.Body>
                         </Card>
 

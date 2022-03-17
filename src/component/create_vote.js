@@ -1,8 +1,6 @@
 import {Form, Col, Row, Button} from 'react-bootstrap'
 import React, { useEffect, useState, forceUpdate } from "react";
 
-
-
 function Create_vote(props) {
     const [voting, setVoting] = useState(undefined);
     const [title, setTitle] = useState(undefined)

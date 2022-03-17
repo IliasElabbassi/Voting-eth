@@ -2,8 +2,8 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
 import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Navbar from './Navbar'
 import getBlockchain from '../ethereum.js';
+import Navbar from './Navbar'
 
 import Home from './Home'
 import NotFound from './PageNoteFound'
