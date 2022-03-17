@@ -1,8 +1,9 @@
-import {Modal, Button, Form, Col, Row } from 'react-bootstrap'
+import {Modal, Button, Form, Col, Row, ProgressBar } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 
 function Vote(props) {
     const [voteElement, setVoteElement] = useState([])
+    const [progressBar, setProgressBar] = useState([])
     const [voteKey, setVoteKey] = useState(undefined)
     const [voting, setVoting] = useState(undefined);
     const [keyVote, setKey] = useState(undefined)
@@ -12,11 +13,13 @@ function Vote(props) {
 
     useEffect(()=>{
         setVoteElement(props.voteElement)
+        setProgressBar(props.numVotes)
+        setNumVotes(props.numVotes)
         setVoting(props.voting)
         setTitle(props.title)
         setKey(props.keyVote)
-        setNumVotes(props.numVotes)
-    },[props.voting, props.voteElement, props.title, props.keyVote, props.numVotes]);
+        handleProgressBar()
+    },[props.voteElement, props.numVotes, props.numVotes, props.voting, props.title, props.keyVote]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,9 +37,28 @@ function Vote(props) {
         }
     }
 
+    function handleProgressBar(){
+        let temp = []
+        let sum = 0
+        for(let i = 0; i < numVotes.length; i++)
+            sum += parseInt(numVotes[i])
+
+        for(let i = 0; i < numVotes.length; i++)
+            temp.push((numVotes[i]/sum) * 100)
+
+        setProgressBar(temp)
+        console.log(sum)
+        console.log(progressBar)
+    }
+    
+    function handler(){
+        handleShow()
+        handleProgressBar()
+    }
+
     return (
         <div className="container">
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick={() => handler()}>
                 Vote
             </Button>
 
@@ -50,15 +72,23 @@ function Vote(props) {
                         voteElement.map((input, idx) => {
                             return(
                                 <Form.Group key={input+"_vote"} as={Row} className="mb-3" id={input+"_vote"}>
-                                    <Col sm="3"></Col>
-                                    <Form.Label column sm="2">
-                                        {input}
-                                    </Form.Label>
-                                    <Col sm="1"></Col>
                                     <Col sm="1">
-                                        <Form.Control type="radio" placeholder="vote.." className={title+"_radio"} onClick={() => setVoteKey(idx)}/>
+                                        <Form.Label column sm="2">
+                                            {input}
+                                        </Form.Label>
                                     </Col>
                                     <Col sm="1"></Col>
+                                    <Col sm="8">
+                                    <ProgressBar sm="8" now={progressBar[idx]}/>
+                                    </Col>
+                                    <Col sm="1">
+                                        <Form.Control
+                                                type="radio"
+                                                placeholder="vote.."
+                                                className={title+"_radio"}
+                                                onClick={() => setVoteKey(idx)}
+                                                />
+                                    </Col>
                                     <Col sm="3">
                                         total : {numVotes[idx].toString()}
                                     </Col>
@@ -68,6 +98,7 @@ function Vote(props) {
                     }
                 </Modal.Body>
                 <Modal.Footer>
+        
                 <Button variant="primary" onClick={() => vote_tx()}>
                     Vote
                 </Button>

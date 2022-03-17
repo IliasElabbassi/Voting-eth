@@ -21,7 +21,7 @@ function Display_all_votes(props) {
             console.log("error: "+err)
         }
     }
-    
+
     return (
         <div className="container row row-cols-lg-3 row-cols-md-2 row-cols-1 text-center justify-content-center">
 
@@ -39,7 +39,7 @@ function Display_all_votes(props) {
                                             })
                                         }
                                     </Card.Text>
-                                    <VoteModal voting={voting} voteElement={vote[2]} numVotes={vote[3]} title={vote[0]} keyVote={idx}/>
+                                    <VoteModal voting={voting} voteElement={vote[2]} numVotes={vote[3]} title={vote[0]} keyVote={idx}  />
                                 </Card.Body>
                             </Card>
 
