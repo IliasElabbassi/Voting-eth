@@ -1,4 +1,4 @@
-import {Modal, Button, Form, Col, Row, ProgressBar } from 'react-bootstrap'
+import {Modal, Button, Form, Col, Row, ProgressBar, Alert} from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 
 function Vote(props) {
@@ -8,8 +8,11 @@ function Vote(props) {
     const [voting, setVoting] = useState(undefined);
     const [keyVote, setKey] = useState(undefined)
     const [numVotes, setNumVotes] = useState([])
+    const [voteTx, setVoteTx] = useState(false)
+    const [alertOn, setAlert] = useState(false)
     const [title, setTitle] = useState(false);
     const [show, setShow] = useState(false);
+
 
     useEffect(()=>{
         setVoteElement(props.voteElement)
@@ -32,6 +35,9 @@ function Vote(props) {
         console.log(_voteKey)
         try{
             const voteTx = await voting.vote(_key, _voteKey)
+            setVoteTx(voteTx.hash)
+            handleAlertShow()
+            closeAlert()
         }catch(err){
             console.log("error: "+err)
         }
@@ -56,6 +62,15 @@ function Vote(props) {
         handleProgressBar()
     }
 
+    async function closeAlert(){
+        setTimeout(function() {
+            handleAlertClose()
+        }, 10000)
+    }
+
+    const handleAlertClose = () => setAlert(false)
+    const handleAlertShow = () => setAlert(true)
+
     return (
         <div className="container">
             <Button variant="primary" onClick={() => handler()}>
@@ -67,6 +82,16 @@ function Vote(props) {
                 <Col sm="4"></Col>
                 <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
+                <Alert variant="success" hidden={!alertOn} transition >
+                    <Alert.Heading>Vote sent !</Alert.Heading>
+                    <p>at : {voteTx}</p>
+                    <hr/>
+                    <div className="d-flex justify-content-end">
+                    <Button onClick={() => handleAlertClose()} variant="outline-success">
+                        Close
+                    </Button>
+                    </div>
+                </Alert>
                 <Modal.Body>
                     {
                         voteElement.map((input, idx) => {
