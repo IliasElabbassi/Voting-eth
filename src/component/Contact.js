@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {Form, Button, Alert} from 'react-bootstrap'
+import React, { useState } from "react";
+import {Form, Button, Alert, Col, Row} from 'react-bootstrap'
 import emailjs from '@emailjs/browser';
 
 function Contact() {
@@ -53,38 +53,43 @@ function Contact() {
 
     return (
         <div className="container">
-            <Alert variant="success" hidden={!alertOn} transition >
-                <Alert.Heading>Email Sent !</Alert.Heading>
-                <hr/>
-                <div className="d-flex justify-content-end">
-                <Button onClick={() => handleAlertClose()} variant="outline-success">
-                    Close
+            <Row>
+                <Col sm={2}>
+                </Col>
+                <Col sm={8}>
+                <Alert variant="success" hidden={!alertOn} transition >
+                    <Alert.Heading>Email Sent !</Alert.Heading>
+                    <hr/>
+                    <div className="d-flex justify-content-end">
+                    <Button onClick={() => handleAlertClose()} variant="outline-success">
+                        Close
+                    </Button>
+                    </div>
+                </Alert>
+                <Form>
+                <Form.Group className="mb-3" controlId="email.name">
+                    <Form.Label>Your name</Form.Label>
+                    <Form.Control type="text" placeholder="Your name" name="name"  onChange={(e) => setName(e.value)} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="email.from">
+                    <Form.Label>Your Email address</Form.Label>
+                    <Form.Control type="email" placeholder="name@example.com" name="email"  onChange={(e) => setFrom(e.value)}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="email.object">
+                    <Form.Label>Object</Form.Label>
+                    <Form.Control type="text" placeholder="Object of your mail" name="subject"  onChange={(e) => setObject(e.value)}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="email.text" >
+                    <Form.Label>Example textarea</Form.Label>
+                    <Form.Control as="textarea" rows={10} name="message"  onChange={(e) => setText(e.value)} />
+                </Form.Group>
+                </Form>
+
+                <Button variant="primary" type="submit" onClick={() => send()} >
+                    Submit
                 </Button>
-                </div>
-            </Alert>
-            <Form>
-            <Form.Group className="mb-3" controlId="email.name">
-                <Form.Label>Your name</Form.Label>
-                <Form.Control type="text" placeholder="Your name" name="name"  onChange={(e) => setName(e.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="email.from">
-                <Form.Label>Your Email address</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" name="email"  onChange={(e) => setFrom(e.value)}/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="email.object">
-                <Form.Label>Object</Form.Label>
-                <Form.Control type="text" placeholder="Object of your mail" name="subject"  onChange={(e) => setObject(e.value)}/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="email.text" >
-                <Form.Label>Example textarea</Form.Label>
-                <Form.Control as="textarea" rows={10} name="message"  onChange={(e) => setText(e.value)} />
-            </Form.Group>
-            </Form>
-
-            <Button variant="primary" type="submit" onClick={() => send()} >
-                Submit
-            </Button>
-
+                </Col>
+            </Row>
         </div>
     )
 }

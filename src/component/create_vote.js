@@ -67,45 +67,50 @@ function Create_vote(props) {
 
     return (
         <div className='container'>
-            <Alert variant="success" hidden={!alertOn} transition >
-                <Alert.Heading>Vote created !</Alert.Heading>
-                <p>at : {voteTx}</p>
-                <hr/>
-                <div className="d-flex justify-content-end">
-                <Button onClick={() => handleAlertClose()} variant="outline-success">
-                    Close
-                </Button>
-                </div>
-            </Alert>
-            <br/>
-            <Form.Group as={Row} className="mb-3" controlId="formPlaintextTitle">
-                <Form.Label column sm="2">
-                    Vote title
-                </Form.Label>
-                <Col sm="10">
-                    <Form.Control  defaultValue="This is a vote about..." onChange={(e) => setTitle(e.target.value)} />
+            <Row>
+                <Col sm={2}>
                 </Col>
-            </Form.Group>
-            
-            {
-                inputs.map(input => {
-                    return(
-                        <Form.Group key={input} as={Row} className="mb-3" controlId={input}>
+                <Col sm={8}>
+                    <Alert variant="success" hidden={!alertOn} transition >
+                        <Alert.Heading>Vote created !</Alert.Heading>
+                        <p>at : {voteTx}</p>
+                        <hr/>
+                        <div className="d-flex justify-content-end">
+                        <Button onClick={() => handleAlertClose()} variant="outline-success">
+                            Close
+                        </Button>
+                        </div>
+                    </Alert>
+                    <br/>
+                    <Form.Group as={Row} className="mb-3" controlId="formPlaintextTitle">
                         <Form.Label column sm="2">
-                            {input}
+                            Vote title
                         </Form.Label>
                         <Col sm="10">
-                            <Form.Control type="text" placeholder="vote.." />
+                            <Form.Control  defaultValue="This is a vote about..." onChange={(e) => setTitle(e.target.value)} />
                         </Col>
                     </Form.Group>
-                    )
-                })
-            }
+                    
+                    {
+                        inputs.map(input => {
+                            return(
+                                <Form.Group key={input} as={Row} className="mb-3" controlId={input}>
+                                <Form.Label column sm="2">
+                                    {input}
+                                </Form.Label>
+                                <Col sm="10">
+                                    <Form.Control type="text" placeholder="vote.." />
+                                </Col>
+                            </Form.Group>
+                            )
+                        })
+                    }
 
-            <Button variant="primary" onClick={() => create_vote_tx()}>Create</Button>&nbsp;
-            <Button variant="success" onClick={() => addInput()}>add input</Button>&nbsp;
-            <Button variant="secondary" onClick={() => removeInput()}>remove input</Button>
-
+                    <Button variant="primary" onClick={() => create_vote_tx()}>Create</Button>&nbsp;
+                    <Button variant="success" onClick={() => addInput()}>add input</Button>&nbsp;
+                    <Button variant="secondary" onClick={() => removeInput()}>remove input</Button>
+                </Col>
+            </Row>
         </div>
     )
 }

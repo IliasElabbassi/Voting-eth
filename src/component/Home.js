@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from "react";
-import {Grid, Col, Row} from 'react-bootstrap'
+import {Col, Row} from 'react-bootstrap'
 
 function Home() {
     return (
         <div className="container">
-            <Row className="show-grid" >
-                <h3>
-                    Welcome to my voting app : in build
-                </h3>
+            <br/>
+            <Row>
+                <Col style={{textAlign: "center"}}>
+                    <h2>Create and vote thanks to the ethereum blockchain, Try now !</h2>
+                    <p style={{textAlign: "center"}}> 
+                        You can start by exploring all the on-going votes in the <b>'Votes'</b> tabs
+                    </p>
+                    <p style={{textAlign: "center"}}> 
+                        Then why not create a vote, by clicking on <b>'Create vote'</b>
+                    </p>
+                    <p style={{textAlign: "center"}}> 
+                        <i>For information each accounts can only vote <b>once</b> for a specific vote.</i>
+                    </p>
+                </Col>
             </Row>
+            <Row>
+                <Col sm={{offset:3}}>
+                        <img  src="/voting.gif" height={600}  />            
+                </Col>
+            </Row>
+            
         </div>
     )
 }

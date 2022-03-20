@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import React, { useEffect, useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {Grid, Col, Row} from 'react-bootstrap'
 
 import getBlockchain from '../ethereum.js';
 import NavbarComponent from './Navbar'
@@ -47,7 +47,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route element={<NotFound />} />
           </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
+        <hr />
+        <Col style={{textAlign: "right"}}>licence <a href='https://mit-license.org/'>MIT</a></Col>
+        <Col style={{textAlign: "right"}}>By Ilias El abbassi</Col>
+        <Col style={{textAlign: "right"}}>iliaselabbassi@outlook.fr</Col>
+        <Col style={{textAlign: "right"}}><a href='https://github.com/IliasElabbassi'>github</a></Col>
+        <br />
       </div>
     )
   }
